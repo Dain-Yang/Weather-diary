@@ -21,7 +21,7 @@ public class DiaryController {
         this.diaryService = diaryService;
     }
 
-    @ApiOperation(value = "일기 텍스트와 날씨를 이용하여 DB에 일기 저장", notes = "부가 설명용 어노테이션")
+    @ApiOperation(value = "일기 텍스트와 날씨를 이용하여 DB에 일기 저장")
     @PostMapping("/create/diary")
     void createDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @RequestBody String text) {
         diaryService.createDiary(date, text);
@@ -40,11 +40,12 @@ public class DiaryController {
         return diaryService.readDiaries(startDate, endDate);
     }
 
+    @ApiOperation("선택한 일자의 첫 번째 일기 데이터 수정")
     @PutMapping("/update/diary")
     void updateDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @RequestBody String text) {
         diaryService.updateDiary(date, text);
     }
-
+    @ApiOperation("선택한 일자의 모든 일기 데이터 삭제")
     @DeleteMapping("/delete/diary")
     void deleteDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         diaryService.deleteDiary(date);
